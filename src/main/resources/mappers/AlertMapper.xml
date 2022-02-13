@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.poi.mapper.AlertMapper">
+    <!--  private int id;
+    private String elements;
+    private LocalDateTime alertTime;
+    private double abValue;
+    private int alterTimes;
+    private String alertInfo;
+    int update(@Param("alerts") List<Alert> alerts);
+    -->
+    <resultMap id="alertResultMap" type="com.example.poi.domain.Alert">
+        <result property="id" column="id"/>
+        <result property="elements" column="elements" />
+        <result property="alertTime" column="alert_time" />
+        <result property="abValue" column="ab_value"/>
+        <result property="alertTimes" column="alert_times"/>
+        <result property="alertInfo" column="alert_info"/>
+    </resultMap>
+
+    <insert id="save" parameterType="com.example.poi.domain.Alert">
+        insert into alert(id,elements,alert_time,ab_value,alert_times,alert_info)
+        values(#{id}, #{elements},#{alertTime},#{abValue},#{alertTimes},#{alertInfo})
+    </insert>
+
+    <select id="alertCount" resultType="com.example.poi.domain.Alert">
+        select count(*) as alertTimes,elements as elements,alert_info as alertInfo from alert group by elements,alert_info
+    </select>
+
+
+</mapper>

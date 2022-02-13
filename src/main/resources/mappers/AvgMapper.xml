@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.poi.mapper.AvgMapper">
+
+    <resultMap id="avgResultMap" type="com.example.poi.domain.Avg">
+        <result property="date" column="date"/>
+        <result property="hour" column="hour"/>
+        <result property="avgS1" column="avg_S1"/>
+        <result property="avgS2" column="avg_S2"/>
+        <result property="avgS3" column="avg_S3"/>
+        <result property="avgS4" column="avg_S4"/>
+        <result property="avgS5" column="avg_S5"/>
+        <result property="avgS6" column="avg_S6"/>
+        <result property="avgS7" column="avg_S7"/>
+        <result property="avgS8" column="avg_S8"/>
+        <result property="avgS9" column="avg_S9"/>
+        <result property="avgS10" column="avg_S10"/>
+        <result property="avgS11" column="avg_S11"/>
+        <result property="avgS12" column="avg_S12"/>
+        <result property="avgS13" column="avg_S13"/>
+        <result property="avgS14" column="avg_S14"/>
+        <result property="avgS15" column="avg_S15"/>
+        <result property="avgS16" column="avg_S16"/>
+        <result property="avgS17" column="avg_S17"/>
+        <result property="avgS18" column="avg_S18"/>
+        <result property="avgS19" column="avg_S19"/>
+        <result property="avgS20" column="avg_S20"/>
+        <result property="avgS21" column="avg_S21"/>
+        <result property="avgS22" column="avg_S22"/>
+    </resultMap>
+
+<!--    select second(log_time), avg(S1),avg(S2),avg(S3) from elements group by second(log_time);-->
+  <!--
+    List<Avg> findAvg(Elements elements);
+    int save(Avg avg);
+    List<Avg> findByDate(@Param("date") Date date);
+    -->
+
+    <select id="findAvg" resultType="com.example.poi.domain.Avg">
+        select date(log_time) as date,second(log_time) as hour,avg(elements.S1) as avgS1,avg(S2) as avgS2,avg(S3) as avgS3,avg(S4) as avgS4,avg(S5) as avgS5,avg(S6) as avgS6,avg(S7) as avgS7,avg(S8) as avgS8,avg(S9) as avgS9,avg(S10) as avgS10,
+            avg(S11) as avgS11,avg(S12) as avgS12,avg(S13) as avgS13,avg(S14) as avgS14,avg(S15) as avgS15,avg(S16) as avgS16,avg(S17) as avgS17,
+            avg(S18) as avgS18,avg(S19) as avgS19,avg(S20) as avgS20,avg(S21)  as avgS21,avg(S22) as avgS22 from elements group by date(log_time),second(log_time)
+    </select>
+
+    <insert id="save" parameterType="java.util.List" useGeneratedKeys="false">
+        insert into avg(date,hour,avg_S1,avg_S2,avg_S3,avg_S4,avg_S5,avg_S6,avg_S7,avg_S8,avg_S9,avg_S10,avg_S11,avg_S12,avg_S13,avg_S14,avg_S15,avg_S16,avg_S17,avg_S18,avg_S19,avg_S20,avg_S21,avg_S22)
+        values
+               <foreach  collection="avgs" item="avg" separator="," >
+               (
+                #{avg.date},#{avg.hour},#{avg.avgS1}, #{avg.avgS2},#{avg.avgS3},#{avg.avgS4},#{avg.avgS5},#{avg.avgS6},
+                #{avg.avgS7},#{avg.avgS8},#{avg.avgS9},#{avg.avgS10},#{avg.avgS11},#{avg.avgS12},#{avg.avgS13},#{avg.avgS14},#{avg.avgS15},#{avg.avgS16},
+                #{avg.avgS17},#{avg.avgS18},#{avg.avgS19},#{avg.avgS20},#{avg.avgS21},#{avg.avgS22}
+                )
+               </foreach>
+    </insert>
+
+    <select id="findByDate" parameterType="java.lang.String" resultType="com.example.poi.domain.Avg">
+        select date,hour,avg_S1 as avgS1,avg_S2 as avgS2,avg_S3 as avgS3,avg_S4 as avgS4,avg_S5 as avgS5,avg_S6 as avgS6,avg_S7 as avgS7,avg_S8 as avgS8,avg_S9 as avgS9,avg_S10 as avgS10,avg_S11 as avgS11,
+               avg_S12 as avgS12,avg_S13 as avgS13,avg_S14 as avgS14,avg_S15 as avgS15,avg_S16 as avgS16,avg_S17 as avgS17,avg_S18 as avgS18,avg_S19 as avgS19,avg_S20 as avgS20,avg_S21 as avgS21,avg_S22 as avgS22 from avg where DATE_FORMAT(date, '%Y-%m-%d')=#{date}
+    </select>
+</mapper>

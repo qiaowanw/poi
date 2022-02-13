@@ -1,0 +1,97 @@
+# 创建表格
+create table info(
+    code varchar(50),
+    elements varchar(50),
+    sd_lower_limit float,
+    sd_upper_limit float,
+    unit varchar(50),
+    vd_lower_limit float,
+    vd_upper_limit float
+);
+
+# 清空数据
+delete from info where code like 'S%';
+
+# 监控数据
+drop table elements;
+create table elements(
+    id int, S1 float, S2 float, S3 float, S4 float, S5 float, S6 float, S7 float,
+    S8 float, S9 float, S10 float, S11 float, S12 float, S13 float, S14 float,
+    S15 float, S16 float, S17 float, S18 float, S19 float, S20 float, S21 float,
+    S22 float,log_time datetime
+);
+
+# 计算平均值
+drop table avg;
+create table avg(
+    date date, hour int,avg_S1 float, avg_S2 float, avg_S3 float, avg_S4 float, avg_S5 float, avg_S6 float, avg_S7 float,
+    avg_S8 float, avg_S9 float, avg_S10 float, avg_S11 float, avg_S12 float, avg_S13 float, avg_S14 float,
+    avg_S15 float, avg_S16 float, avg_S17 float, avg_S18 float, avg_S19 float, avg_S20 float, avg_S21 float,
+    avg_S22 float
+);
+
+
+delete from elements where log_time is null;
+
+# 自动插入空行
+delimiter //
+create procedure addCol(a int)
+begin
+    declare i int default 1;
+    while i <= a do
+        INSERT INTO info (code, elements, sd_lower_limit, sd_upper_limit, unit, vd_lower_limit, vd_upper_limit)
+        VALUES (null, null, null, null, null, null, null);
+     set i = i+1;
+ end while;
+end;//
+
+call addCol(30);
+
+drop table info;
+drop procedure addCol;
+
+# 删除
+delete from info where code is null limit 22;
+
+# 求平均
+select second(log_time), avg(S1),avg(S2),avg(S3) from elements group by second(log_time);
+
+select date(log_time),minute(log_time),second(log_time),avg(S1),avg(S2),avg(S3),avg(S4),avg(S5),avg(S6),avg(S7),avg(S8),avg(S9),avg(S10),avg(S11),avg(S12),avg(S13),avg(S14),avg(S15),avg(S16),avg(S17),avg(S18),avg(S19),avg(S20),avg(S21),avg(S22) from elements
+group by date(log_time),minute(log_time),second(log_time);
+
+#
+delete from avg where hour <100;
+
+# 按时间查，时间加格式(查1天)
+select * from avg where date=DATE_FORMAT(date_sub(curdate(),interval 1 day),'%Y-%m-%d');
+
+# 按时间查，查7天
+select * from avg where date(date) >= date_sub(curdate(),interval 7 day) and date(date) <=  date_sub(curdate(),interval 1 day);
+
+
+# 创建告警表
+create table alert(
+    id int,
+    elements varchar(50),
+    alert_time datetime,
+    ab_value float,
+    alert_times int,
+    alert_info varchar(300)
+);
+
+select count(*) as alertTimes,elements,alert_info from alert group by elements,alert_info;
+
+delete from alert where alert_info is null;
+
+# 创建告警信息处理表
+create table alertTreat(
+    id int,
+    username varchar(50),
+    ab_elements varchar(50),
+    alert_times int,
+    alert_info varchar(100),
+    treatment varchar(500)
+);
+
+delete from alertTreat where alertTreat.treatment is null;
+

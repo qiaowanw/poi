@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.poi.mapper.AlertTreatMapper">
+    <!--    private int id;
+    private String username;
+    private String abElements;
+    private int alertTimes;
+    private String alertInfo;
+    private String treatment;
+    List<AlertTreat> showAlertInfoByUser(@Param("username")String username);
+    -->
+    <resultMap id="alertTreatResultMap" type="com.example.poi.domain.AlertTreat">
+        <result property="id" column="id"/>
+        <result property="username" column="username" />
+        <result property="abElements" column="ab_elements" />
+        <result property="alertTimes" column="alert_times"/>
+        <result property="alertInfo" column="alert_info"/>
+        <result property="treatment" column="treatment"/>
+    </resultMap>
+
+    <insert id="save" parameterType="java.util.List" useGeneratedKeys="false">
+        insert into alertTreat(id,ab_elements,alert_info,alert_times)
+        values
+               <foreach collection="alertTreat" item="alert" separator=",">
+               (
+                #{alert.id}, #{alert.elements},#{alert.alertInfo},#{alert.alertTimes}
+                )
+               </foreach>
+    </insert>
+
+    <select id="showAlertInfoByUser" parameterType="java.lang.String" resultType="com.example.poi.domain.AlertTreat">
+        select id as id,username as username,ab_elements as abElements,alert_times as alertTimes,alert_info as alertInfo,treatment as treatment
+        from alertTreat where username=#{username}
+    </select>
+
+    <select id="findAll"  resultType="com.example.poi.domain.AlertTreat">
+        select id as id,username as username,ab_elements as abElements,alert_times as alertTimes,alert_info as alertInfo,treatment as treatment from alertTreat
+    </select>
+</mapper>

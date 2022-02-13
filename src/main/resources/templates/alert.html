@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>告警信息</title>
+</head>
+<body>
+<form action="alert" method="post">
+    <input type="submit" value="生成告警数据" />
+    <script language= "javascript" > //js脚本标注
+    </script>
+    <table border="1px">
+       <!-- private int id;
+        private String elements;
+        private LocalDateTime alertTime;
+        private double abValue;
+        private int alertTimes;
+        private String alertInfo;-->
+        <tr>
+            <td>编号</td>
+            <td>告警元素代码</td>
+            <td>告警时间</td>
+            <td>异常值</td>
+            <td>告警次数</td>
+            <td>告警信息</td>
+        </tr>
+        <tr th:each="alert:*{alerts}">
+            <td th:text="${alert.id}"></td>
+            <td th:text="${alert.elements}"></td>
+            <td th:text="${alert.alertTime}"></td>
+            <td th:text="${alert.abValue}"></td>
+            <td th:text="${alert.alertTimes}"></td>
+            <td th:text="${alert.alertInfo}"></td>
+        </tr>
+    </table>
+</form>
+</body>
+</html>

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>监控数据日均值</title>
+</head>
+<body>
+<H1>监控数据日均值</H1>
+<form action="find_avg" method="get">
+    日期(格式：yyyy-MM-dd)<input name="date"/>
+<select name="i">
+    <option th:value="0">请选择</option>
+    <option th:value="1">24小时</option>
+    <option th:value="2">3天</option>
+    <option th:value="3">7天</option>
+</select>
+    <input type="submit" value="查询" />
+    <table border="1px">
+        <tr>
+            <td>日期</td>
+            <td>小时</td>
+            <td>PH</td>
+            <td>总悬浮物</td>
+            <td>BOD</td>
+            <td>COD</td>
+            <td>TOC</td>
+            <td>氨氮</td>
+            <td>磷酸盐</td>
+            <td>累计雨量</td>
+            <td>平均风速</td>
+            <td>平均风向</td>
+            <td>气温</td>
+            <td>气压</td>
+            <td>相对湿度</td>
+            <td>水温</td>
+            <td>电导率</td>
+            <td>浊度</td>
+            <td>溶解氧</td>
+            <td>石油类</td>
+            <td>蓝藻</td>
+            <td>叶绿素</td>
+            <td>硝氮</td>
+            <td>亚硝氮</td>
+        </tr>
+        <span th:each="avg : ${avgs}">
+            <tr>
+            <td th:text="#{avg.date}"></td>
+            <td th:text="#{avg.hour}"></td>
+            <td th:text="#{avg.avgS1}"></td>
+            <td th:text="#{avg.avgS2}"></td>
+            <td th:text="#{avg.avgS3}"></td>
+            <td th:text="#{avg.avgS4}"></td>
+            <td th:text="#{avg.avgS5}"></td>
+            <td th:text="#{avg.avgS6}"></td>
+            <td th:text="#{avg.avgS7}"></td>
+            <td th:text="#{avg.avgS8}"></td>
+            <td th:text="#{avg.avgS9}"></td>
+            <td th:text="#{avg.avgS10}"></td>
+            <td th:text="#{avg.avgS11}"></td>
+            <td th:text="#{avg.avgS12}"></td>
+            <td th:text="#{avg.avgS13}"></td>
+            <td th:text="#{avg.avgS14}"></td>
+            <td th:text="#{avg.avgS15}"></td>
+            <td th:text="#{avg.avgS16}"></td>
+            <td th:text="#{avg.avgS17}"></td>
+            <td th:text="#{avg.avgS18}"></td>
+            <td th:text="#{avg.avgS19}"></td>
+            <td th:text="#{avg.avgS20}"></td>
+            <td th:text="#{avg.avgS21}"></td>
+            <td th:text="#{avg.avgS22}"></td>
+        </tr>
+
+        <tr th:each="av : *{avg}">
+            <td th:text="${av.date}"></td>
+            <td th:text="${av.hour}"></td>
+            <td th:text="${av.avgS1}"></td>
+            <td th:text="${av.avgS2}"></td>
+            <td th:text="${av.avgS3}"></td>
+            <td th:text="${av.avgS4}"></td>
+            <td th:text="${av.avgS5}"></td>
+            <td th:text="${av.avgS6}"></td>
+            <td th:text="${av.avgS7}"></td>
+            <td th:text="${av.avgS8}"></td>
+            <td th:text="${av.avgS9}"></td>
+            <td th:text="${av.avgS10}"></td>
+            <td th:text="${av.avgS11}"></td>
+            <td th:text="${av.avgS12}"></td>
+            <td th:text="${av.avgS13}"></td>
+            <td th:text="${av.avgS14}"></td>
+            <td th:text="${av.avgS15}"></td>
+            <td th:text="${av.avgS16}"></td>
+            <td th:text="${av.avgS17}"></td>
+            <td th:text="${av.avgS18}"></td>
+            <td th:text="${av.avgS19}"></td>
+            <td th:text="${av.avgS20}"></td>
+            <td th:text="${av.avgS21}"></td>
+            <td th:text="${av.avgS22}"></td>
+        </tr>
+        </span>
+    </table>
+
+</form>
+</body>
+</html>

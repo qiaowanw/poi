@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.poi.mapper.ElementsMapper">
+
+    <resultMap id="eleResultMap" type="com.example.poi.domain.Elements">
+        <result property="id" column="id"/>
+        <result property="s1" column="S1"/>
+        <result property="s2" column="S2"/>
+        <result property="s3" column="S3"/>
+        <result property="s4" column="S4"/>
+        <result property="s5" column="S5"/>
+        <result property="s6" column="S6"/>
+        <result property="s7" column="S7"/>
+        <result property="s8" column="S8"/>
+        <result property="s9" column="S9"/>
+        <result property="s10" column="S10"/>
+        <result property="s11" column="S11"/>
+        <result property="s12" column="S12"/>
+        <result property="s13" column="S13"/>
+        <result property="s14" column="S14"/>
+        <result property="s15" column="S15"/>
+        <result property="s16" column="S16"/>
+        <result property="s17" column="S17"/>
+        <result property="s18" column="S18"/>
+        <result property="s19" column="S19"/>
+        <result property="s20" column="S20"/>
+        <result property="s21" column="S21"/>
+        <result property="s22" column="S22"/>
+        <result property="logTime" column="log_time" />
+    </resultMap>
+
+    <insert id="save" parameterType="com.example.poi.domain.Elements">
+        insert into elements(id,S1,S2,S3,S4,S5,S6,S7,S8,S9,S10,S11,S12,S13,S14,S15,S16,S17,S18,S19,S20,S21,S22,log_time)
+        values(#{id},#{s1}, #{s2},#{s3},#{s4},#{s5},#{s6},#{s7},#{s8},#{s9},#{s10},#{s11},#{s12},#{s13},#{s14},#{s15},#{s16},#{s17},#{s18},#{s19},#{s20},#{s21},#{s22},#{logTime})
+    </insert>
+
+<!--    List<Elements> findAllElements()-->
+    <select id="findAllElements" resultType="com.example.poi.domain.Elements">
+        select * from elements
+    </select>
+
+</mapper>

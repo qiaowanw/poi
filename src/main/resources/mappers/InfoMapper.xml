@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.poi.mapper.InfoMapper">
+   <!-- private String code;
+    private String elements;
+    private double sdLowerLimit;
+    private double sdUpperLimit;
+    private String unit;
+    private double vdLowerLimit;
+    private double vdUpperLimit;-->
+    <resultMap id="infoResultMap" type="com.example.poi.domain.Info">
+        <result property="code" column="code"/>
+        <result property="elements" column="elements" />
+        <result property="sdLowerLimit" column="sd_lower_limit" />
+        <result property="sdUpperLimit" column="sd_upper_limit"/>
+        <result property="unit" column="unit"/>
+        <result property="vdLowerLimit" column="vd_lower_limit"/>
+        <result property="vdUpperLimit" column="vd_upper_limit"/>
+    </resultMap>
+
+    <insert id="save" parameterType="com.example.poi.domain.Info">
+        insert into info(code,elements,sd_lower_limit,sd_upper_limit,unit,vd_lower_limit,vd_upper_limit)
+        values(#{code}, #{elements},#{sdLowerLimit},#{sdUpperLimit},#{unit},#{vdLowerLimit},#{vdUpperLimit})
+    </insert>
+
+
+</mapper>
